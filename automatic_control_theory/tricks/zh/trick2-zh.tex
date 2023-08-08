@@ -1,0 +1,48 @@
+\documentclass{ctexart}
+
+% 页面设置
+\pagestyle{plain}
+\usepackage[a4paper, top=1in, bottom=1in, left=1.5in, right=1.5in]{geometry}
+\usepackage[fontsize=12]{fontsize}
+
+\begin{document}
+
+\title{线性离散时间控制系统分析与综合}
+\author{ecstayalive}
+\date{2023年6月15日}
+\maketitle
+
+\section{一个很重要的公式}
+相对而言，离散控制系统往往计算量比较大，尤其是在不允许使用计算机的情况下。
+而如果想要做题速度快，就需要多记。因此本文介绍一个十分重要的公式，使用该公式
+能够较快的提高做某些离散控制题的速度。
+
+\begin{equation}
+    \mathbf{Z}[\frac{a^2}{s^2(s+a)}] = \frac{z[(aT+e^{-aT}-1)z +
+    1-(aT+1)e^{-aT}]}{(z-1)^2(z-e^{-aT})}
+\end{equation}
+
+可以发现，这个公式比较复杂，因此在教材中一般不会说明。但是如果有做到离散系统
+这部分的同学会发现让求$\frac{a^2}{s^2(s+a)}$这类形式的$\mathbf{Z}$变换
+频率极高。
+
+仔细观察一下这个式子，会发现其中只有$e^{-aT}$与$aT$这两个需要较大的计算量，
+一般而言，题目会告诉你采样周期$T$， 如果记住$e^{-1} = 0.368$等几个常用的式子
+的话，整体就十分好算。因此也能极大地提高做题速度。
+
+\subsection{离散系统中推荐记住的几个复杂的公式}
+接下来这几个公式往往教材中都有涉及
+
+\begin{equation}
+    \mathbf{Z}[\frac{a}{s(s+a)}] =
+    \frac{z(1 - e^{-aT})}{(z-1)(z-e^{-aT})}
+\end{equation}
+
+\begin{equation}
+    \mathbf{Z}[\frac{b-a}{(s+a)(s+b)}] =
+    \frac{z(e^{-aT}-e^{-bT})}{(z-e^{-aT})(z-e^{-bT})}
+\end{equation}
+
+除此之外，课本上比较简单、基础的$\mathbf{Z}$变换公式必须记住。
+
+\end{document}

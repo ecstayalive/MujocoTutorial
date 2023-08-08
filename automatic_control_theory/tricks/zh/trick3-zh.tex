@@ -1,0 +1,192 @@
+\documentclass{ctexart}
+% 页面设置
+\pagestyle{plain}
+\usepackage[a4paper, top=1in, bottom=1in, left=1.5in, right=1.5in]{geometry}
+\usepackage[fontsize=12]{fontsize}
+\usepackage{amsmath, amssymb, mathtools}
+% 文档内容
+\begin{document}
+\title{流程}
+\author{ecstayalive}
+\maketitle
+
+\section*{一些流程}
+虽然每个人都希望看到有很多技巧，能够帮助你加快做题速度。甚至有些人希望能够看到题目，立刻
+得出来答案，但是很不幸，没有这种方法，大部分题目仍需要我们做大量的运算。
+但是确实一些如果我们在作题目的时候遵循一些规范会有所帮助。本篇文章只会介绍几个应该具有的
+规范问题，当然，每个人都有自己的规范、方法。在此只做提示。
+
+\subsection*{多项式乘积}
+在自动控制原理做题时，经常会遇见多项式乘积。但是题目中的多项式乘积是非常长的，
+这就会导致在写的过程中十分混乱。例如：
+
+\begin{equation}
+    \begin{aligned}
+        \quad   & (2 s^2 + s + 5)(a s + b)(3s + 2)                    \\
+        = \quad & (2a s^3 + 2b s^2 + a s^2 + b s + 5a s + 5b)(3s + 2) \\
+        = \quad & (2a s^3 + (2b + a) s^2 + (5a + b)s + 5b)(3s + 2)    \\
+        = \quad & \cdots
+    \end{aligned}
+    \label{eq:1}
+\end{equation}
+
+由这个例子看到，当处理比较长的数学公式的时候，就显得十分混乱。这种混乱会增大我们
+出错的概率。有一种方法似乎可以避免这种混乱。就是每次在处理的时候写成堆叠状，例如：
+当我们处理$(2 s^2 + s + 5)(a s + b)(3s + 2)$时，
+我们需要先处理$(2 s^2 + s + 5)(a s + b)$，这个时候我们写成堆叠形式：
+
+\begin{equation}
+    \begin{aligned}
+        \quad   & (2 s^2 + s + 5)(a s + b)               \\
+        = \quad & 2a s^3 + a s^2 + 5a s                  \\
+        \quad   & \qquad \quad 2b s^2  + b s  + 5b       \\
+        = \quad & 2a s^3 + (a + 2b) s^2 + (5a + b)s + 5b
+    \end{aligned}
+    \label{eq:2}
+\end{equation}
+
+这种对齐形式的写法会降低错误率，同时也可以稍微提升做题速度。但是尽管如此，大部分题目仍然需要
+较强的计算能力。
+
+\subsection*{现代控制理论中的一些流程}
+
+现代控制理论中比传统控制理论涉及到更多的矩阵运算，如果在运算过程中没有一定的流程的话，
+在计算过程中可能会让人迷糊。在现控中，涉及最多的是三阶矩阵的乘法，这是我们可以使用如下
+的流程来做：
+
+\begin{equation}
+    \begin{pmatrix}
+        a_{11} & a_{12} & a_{13} \\
+        a_{21} & a_{22} & a_{23} \\
+        a_{31} & a_{32} & a_{33}
+    \end{pmatrix}
+    \begin{pmatrix}
+        b_{11} \\
+        b_{21} \\
+        b_{31}
+    \end{pmatrix}
+    =
+    b_{11}
+    \begin{pmatrix}
+        a_{11} \\
+        a_{21} \\
+        a_{31}
+    \end{pmatrix}
+    +
+    b_{21}
+    \begin{pmatrix}
+        a_{12} \\
+        a_{22} \\
+        a_{32}
+    \end{pmatrix}
+    +
+    b_{31}
+    \begin{pmatrix}
+        a_{13} \\
+        a_{23} \\
+        a_{33}
+    \end{pmatrix}
+    \label{eq:3}
+\end{equation}
+这样，矩阵乘法可以使用三个向量加法来表示。虽然这并没有减少运算量，但至少看起来比较有条理。
+如果学到现代控制系统可控、可观性判别时。会发现经常让求一个矩阵$\begin{bmatrix}
+        b & Ab & A^2b & \cdots
+    \end{bmatrix}$，
+通常$A$矩阵为三阶。面对此矩阵时即可使用公式\eqref{eq:3}，
+将$Ab$的向量值算出。当$Ab$的值算出后，我们无需求解$A^2$矩阵，只需要迭代的使用公式\eqref{eq:3}即可。
+
+就比如，我们已经通过下式计算得到了$Ab$向量：
+
+\begin{equation}
+    \begin{aligned}
+        Ab& = \quad
+        \begin{pmatrix}
+            a_{11} & a_{12} & a_{13} \\
+            a_{21} & a_{22} & a_{23} \\
+            a_{31} & a_{32} & a_{33}
+        \end{pmatrix}
+        \begin{pmatrix}
+            b_{1} \\
+            b_{2} \\
+            b_{3}
+        \end{pmatrix}     \\
+                 & = \quad
+        b_{1}
+        \begin{pmatrix}
+            a_{11} \\
+            a_{21} \\
+            a_{31}
+        \end{pmatrix}
+        +
+        b_{2}
+        \begin{pmatrix}
+            a_{12} \\
+            a_{22} \\
+            a_{32}
+        \end{pmatrix}
+        +
+        b_{3}
+        \begin{pmatrix}
+            a_{13} \\
+            a_{23} \\
+            a_{33}
+        \end{pmatrix}     \\
+                 & = \quad
+        \begin{pmatrix}
+            c_1 \\
+            c_2 \\
+            c_3
+        \end{pmatrix}
+        \label{eq:4}
+    \end{aligned}
+\end{equation}
+
+那么在我们计算下一行时，我们不需要计算$A^2$，只需要递归地使用这种向量表示法就可以。
+
+\begin{equation}
+    \begin{aligned}
+        A^2b = A \cdot Ab & = \quad
+        \begin{pmatrix}
+            a_{11} & a_{12} & a_{13} \\
+            a_{21} & a_{22} & a_{23} \\
+            a_{31} & a_{32} & a_{33}
+        \end{pmatrix}
+        \begin{pmatrix}
+            c_{1} \\
+            c_{2} \\
+            c_{3}
+        \end{pmatrix}                                \\
+                                            & = \quad
+        c_{1}
+        \begin{pmatrix}
+            a_{11} \\
+            a_{21} \\
+            a_{31}
+        \end{pmatrix}
+        +
+        c_{2}
+        \begin{pmatrix}
+            a_{12} \\
+            a_{22} \\
+            a_{32}
+        \end{pmatrix}
+        +
+        c_{3}
+        \begin{pmatrix}
+            a_{13} \\
+            a_{23} \\
+            a_{33}
+        \end{pmatrix}                                \\
+                                            & = \quad
+        \begin{pmatrix}
+            d_1 \\
+            d_2 \\
+            d_3
+        \end{pmatrix}
+        \label{eq:4}
+    \end{aligned}
+\end{equation}
+
+如果做的题目比较多，就会发现这种方法比较有条理，可以稍微地减少计算的时间，并且可以减少错误率。
+
+\end{document}
